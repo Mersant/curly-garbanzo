@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Mersant/curly-garbanzo/issues"
   },
-  "homepage": "https://github.com/Mersant/curly-garbanzo#readme"
+  "homepage": "https://github.com/Mersant/curly-garbanzo#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
