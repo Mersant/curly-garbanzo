@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
+<<<<<<< HEAD
     "develop": "concurrently \"cd server && npm run watch\" \"cd client/chatter && npm start\"",
+=======
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+>>>>>>> a9686b2516a021b12549da3f609e80b1589c6a7e
     "install": "cd server && npm i && cd ../client/chatter && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client/chatter && npm run build"
