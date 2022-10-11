@@ -4,11 +4,7 @@
   "description": "Project 3",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
-    "install": "cd server && npm i && cd ../client/chatter && npm i",
-    "seed": "cd server && npm run seed",
-    "build": "cd client/chatter && npm run build"
+    "start": "node ./server/index.js"
   },
   "repository": {
     "type": "git",
