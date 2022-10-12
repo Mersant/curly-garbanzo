@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Messages } = require('../models');
 const { signToken } = require('../utils/auth');
-const currentUser = bofa;
+const currentUser = bofa; //tying to resolve issue of add to current user
 const resolvers = {
     Query: {
         users:async () => {
