@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Messages } = require('../models');
 const { signToken } = require('../utils/auth');
-
+const currentUser = bofa;
 const resolvers = {
     Query: {
         users:async () => {
@@ -20,10 +20,12 @@ const resolvers = {
         addUser: async (parent, { username, password }) => {
             const user = await User.create({ username,password });
             const token = signToken(user);
+            currentUser =username;
             return { token, user };
         },
         login: async(parent,{username,password})=> {
             const user = await User.findOne({username});
+            
             if (!user){
                 throw new AuthenticationError("User with this username does not exist!");
             }
@@ -32,12 +34,13 @@ const resolvers = {
                 throw new AuthenticationError("Incorrect password!");
             }
             const token = signToken(user);
+            currentUser =username;
             return {token,user};
         },
         addMessage: async (parent,{messageText})=>{
             const message = await Messages.create({messageText});
             await User.findOneAndUpdate(
-                {username:this.username},
+                {username: currentUser},
                 {$addToSet: {messages:message._id}} // Need to add message to the presently logged in user, unsure of how to do that
             );
         }
