@@ -1,7 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Messages } = require('../models');
 const { signToken } = require('../utils/auth');
-const currentUser = bofa; //tying to resolve issue of add to current user
 const resolvers = {
     Query: {
         users:async () => {
@@ -20,7 +19,7 @@ const resolvers = {
         addUser: async (parent, { username, password }) => {
             const user = await User.create({ username,password });
             const token = signToken(user);
-            currentUser =username;
+         
             return { token, user };
         },
         login: async(parent,{username,password})=> {
@@ -34,18 +33,19 @@ const resolvers = {
                 throw new AuthenticationError("Incorrect password!");
             }
             const token = signToken(user);
-            currentUser =username;
+            
             return {token,user};
         },
-        addMessage: async (parent,{messageText})=>{
+        addMessage: async (parent,{messageText}, context)=>{
             const message = await Messages.create({messageText});
-            await User.findOneAndUpdate(
-                {username: currentUser},
-                {$addToSet: {messages:message._id}} // Need to add message to the presently logged in user, unsure of how to do that
-            );
+            if (context.user) {
+                return User.findOneAndUpdate({ _id: context.user._id }, {$addToSet: {messages:message._id}});
+              }
+              throw new AuthenticationError('You need to be logged in!');
+            }
         }
 
     }
-}
+
 
 module.exports = resolvers;
