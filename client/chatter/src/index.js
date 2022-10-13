@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
 import moment from "moment";
 
+// FIXME:
 const username = 'quandale';
 
 const socket = io("http://localhost:3000", {
