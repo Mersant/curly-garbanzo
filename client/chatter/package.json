@@ -12,7 +12,10 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "socket.io-client": "^4.5.2",
+=======
+>>>>>>> 2750ab1e0fc3c756f37be778991d9af6ea9384b1
     "web-vitals": "^2.1.4"
   },
   "scripts": {
