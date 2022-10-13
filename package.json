@@ -21,17 +21,11 @@
   },
   "homepage": "https://github.com/Mersant/curly-garbanzo#readme",
   "dependencies": {
-<<<<<<< HEAD
     "bootstrap": "^5.2.2",
     "express": "^4.18.2",
     "moment": "^2.29.4",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "socket.io": "^4.5.2"
-=======
-    "bootstrap-4-react": "^0.0.59",
-    "express": "^4.18.2",
-    "react-dom": "^18.2.0"
->>>>>>> 2750ab1e0fc3c756f37be778991d9af6ea9384b1
   }
 }
