@@ -10,7 +10,9 @@ import moment from "moment";
 // FIXME:
 const username = 'quandale';
 
-const socket = io("http://localhost:3000", {
+let url = window.location.origin.toString().replace(/^http/, 'ws');
+
+const socket = io(url, {
   transports: ["websocket", "polling"]
 });
 
