@@ -1,53 +1,51 @@
 import io from "socket.io-client";
-
-import "bootstrap/dist/css/bootstrap.css";
-import "./styles/Chat.css";
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import "../styles/Chat.css";
 import React from "react";
-import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
 import moment from "moment";
 
+
+function Chat() {
+// FIXME:
 const username = 'quandale';
 
 const socket = io("http://localhost:3000", {
-  transports: ["websocket", "polling"]
+    transports: ["websocket", "polling"]
 });
+const [users, setUsers] = useState([]);
+const [message, setMessage] = useState("");
+const [messages, setMessages] = useState([]);
 
-const App = ({}) => {
-  const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
+useEffect(() => {
     socket.on("connect", () => {
-      socket.emit("username", username);
+    socket.emit("username", username);
     });
 
     socket.on("users", users => {
-      setUsers(users);
+    setUsers(users);
     });
 
     socket.on("message", message => {
-      setMessages(messages => [...messages, message]);
+    setMessages(messages => [...messages, message]);
     });
 
     socket.on("connected", user => {
-      setUsers(users => [...users, user]);
+    setUsers(users => [...users, user]);
     });
 
     socket.on("disconnected", id => {
-      setUsers(users => {
+    setUsers(users => {
         return users.filter(user => user.id !== id);
-      });
     });
-  }, []);
+    });
+}, []);
 
-  const submit = event => {
+const submit = event => {
     event.preventDefault();
     socket.emit("send", message);
     setMessage("");
-  };
-
+};
   return (
     <div className="container">
       <div className="row">
@@ -97,5 +95,6 @@ const App = ({}) => {
       </div>
     </div>
   );
-};
-ReactDOM.render(<App />, document.getElementById("root"));
+}
+
+export default Chat;
