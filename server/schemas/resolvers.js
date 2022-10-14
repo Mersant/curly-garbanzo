@@ -36,13 +36,21 @@ const resolvers = {
             
             return {token,user};
         },
-        addMessage: async (parent,{messageText}, context)=>{
-            const message = await Messages.create({messageText});
+        addMessage: async (parent, { thoughtText }, context) => {
             if (context.user) {
-                return User.findOneAndUpdate({ _id: context.user._id }, {$addToSet: {messages:message._id}});
-              }
-              throw new AuthenticationError('You need to be logged in!');
+              const message = await Messages.create({
+                messageText
+              });
+      
+              await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { messageHistory: message._id } }
+              );
+      
+              return message;
             }
+            throw new AuthenticationError('You need to be logged in!');
+          }
         }
 
     }
